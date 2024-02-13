@@ -145,6 +145,7 @@
         async function obtenerRespuesta(input) {
             const apiKey = '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'; // Reemplaza 'TU_API_KEY' con tu clave de API de ChatGPT
             const endpoint = 'https://api.openai.com/v1/chat/completions';
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Proxy CORS
 
             const requestBody = {
                 model: 'gpt-3.5-turbo-0301', // Modelo específico de ChatGPT 3.5
@@ -156,11 +157,13 @@
                 ]
             };
 
-            const respuesta = await fetch(endpoint, {
+            
+            const respuesta = await fetch(proxyUrl + endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
+                    'Authorization': `Bearer ${apiKey}`,
+                    'X-Requested-With': 'XMLHttpRequest' // Algunos servidores pueden requerir este encabezado
                 },
                 body: JSON.stringify(requestBody)
             });
@@ -184,7 +187,7 @@ ${codigo}
             //leer el tipo del combo
             let tipo = document.getElementById('tipoDestino').innerHTML;
             let texto = '';
-            
+
             switch (tipo) {
                 case 'Modelo TypeScript':
                 texto = `Analiza bien el [Código] y extrae todos los campos para una tabla, y devuelve en código de programación para archivo typescript con una clase exportable con todo y su constructor.
