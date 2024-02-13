@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <title>AutoCódigo</title>
+  </head>
+  <body class="bg-dark text-white">
+    <div class="container">
+    <main>
+        <div class="py-5 text-center">
+          <img class="d-block mx-auto mb-4" src="logo.png" alt="" width="200" height="100">
+          <p class="lead">Potencia tu desarrollo con nuestro generador de código impulsado por IA. Transformamos tus ideas en realidad programada en cualquier lenguaje. Simplifica y acelera tu proceso de codificación con nosotros.</p>
+        </div>
+    
+        <div class="row">
+          <div class="col-6">            
+              <div class="row">              
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Generación Automática
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body bg-dark text-white">
+                        <div class="col-12">
+                            <label for="TipoSistema" class="form-label">Tipo Sistema <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" id="TipoSistema" placeholder="Ejemplo: Sistema de Control de Inventarios para una Ferretería."/>
+                          </div>
+              
+                          <div class="col-12">
+                              <label for="Objetivo" class="form-label">Objetivo <span class="text-muted">(Optional)</span></label>
+                              <input type="text" class="form-control" id="Objetivo" placeholder="Ejemplo: Almacenar datos generales de los productos."/>
+                            </div>
+          
+                          <div class="col-12">
+                              <label for="Nombre" class="form-label">Nombre Entidad <span class="text-muted">(Optional)</span></label>
+                              <input type="text" class="form-control" id="Nombre" placeholder="Ejemplo: Cat_Articulos"/>
+                          </div>
+          
+                          <div class="col-12">
+                              <label for="Comentarios" class="form-label">Comentarios adicionales <span class="text-muted">(Optional)</span></label>
+                              <textarea class="form-control" id="Comentarios" placeholder="Ocupo marcar productos inactivos o activos.&#13;&#10;Los productos tienen vigencia." rows="2"></textarea>
+                          </div>
+                          
+                          <hr class="my-4">
+
+                          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </symbol>
+                          </svg>
+
+                       
+
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            Para recibir sugerencias automáticas de campos, por favor, proporcione la mayor información posible en los cuatro campos opcionales que se muestran.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+
+                          <button class="w-100 btn btn-success btn-lg" type="submit">Generar Modelo</button>
+
+                      </div>
+                    </div>
+                  </div>                
+                </div>                
+              </div>   
+
+              <div class="row">
+                <hr class="my-4">
+                <div class="col-12">
+                    <div class="row bg-dark text-white">
+                        <div class="col">
+                            <textarea class="form-control bg-dark text-white" id="Origen" rows="10" placeholder="Por favor, pegue aquí su texto libre o cualquier código del que se puedan extraer campos disponibles."></textarea>                            
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="tipoOrigen" class="col text-start"></div>
+                        <div class="col text-end"><button type="button" class="btn btn-dark" onclick="Borrar();">Borrar código</button></div>
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-lg" type="button" onclick="GenerarCampos()">Crear Código</button>
+            </div>
+
+          </div>
+          <div class="col-6">
+            <div class="row">
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Seleccione lenguaje
+                    </button>
+                    <ul id="cmbLenguajes" class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Modelo TypeScript</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+                <br/> <br/>
+                <hr class="my-4">
+                <div class="col-12">
+                    <div class="row bg-dark text-white">
+                        <div class="col">
+                            <textarea class="form-control bg-dark text-white mt-1" id="Destino" rows="10" ></textarea>                            
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="tipoDestino" class="col text-start"></div>
+                        <div class="col text-end"><button type="button" class="btn btn-dark">Copiar código</button></div>
+                    </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function Borrar(){
+            document.getElementById('Origen').value='';
+            document.getElementById('Destino').value='';
+            document.getElementById('tipoOrigen').innerHTML='libre';
+            document.getElementById('tipoDestino').innerHTML= '';
+        }
+
+        async function obtenerRespuesta(input) {
+            const apiKey = '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'; // Reemplaza 'TU_API_KEY' con tu clave de API de ChatGPT
+            const endpoint = 'https://api.openai.com/v1/chat/completions';
+
+            const requestBody = {
+                model: 'gpt-3.5-turbo-0301', // Modelo específico de ChatGPT 3.5
+                messages: [
+                    {
+                        role: 'user',
+                        content: input
+                    }
+                ]
+            };
+
+            const respuesta = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            const data = await respuesta.json();
+            return data.choices[0].message.content; // Retorna la respuesta del modelo
+        }
+
+        function promptTipo(codigo){
+            let texto = `Como experto en lenguajes de programación, necesitas identificar con precisión el lenguaje de programación del siguiente [Código]. 
+No proporciones detalles ni explicaciones adicionales, simplemente dame el nombre común del lenguaje. Dame máximo 5 palabras.
+Si no logras identificar o ante la duda devuelve especificamente la palabra exactamente "libre" no des explicaciones, solo es una palabra sin punto, como resultado
+[Código]
+${codigo}
+`;
+            return texto;
+        }
+
+        function promptLenguajes() {
+            //Se requiere crear un archivo ,ts con una clase exportable en typescript que incluya su constructor con todos los campos. Te vuelvo a recordar, No olvides hacer la clase exportable (export class)
+            //leer el tipo del combo
+            let tipo = document.getElementById('tipoDestino').innerHTML;
+            let texto = '';
+            
+            switch (tipo) {
+                case 'Modelo TypeScript':
+                texto = `Analiza bien el [Código] y extrae todos los campos para una tabla, y devuelve en código de programación para archivo typescript con una clase exportable con todo y su constructor.
+                            Declaras las propiedades de la clase y no es necesario usar la palabra reservada public`;
+                    
+                    break;            
+                default:
+                    break;
+            }
+
+            return texto;
+        }
+
+        function promptOrigen(codigo,lenguaje){
+            let texto = `Como experto en lenguajes de programación, con el siguiente [Código] tenemos el objetivo de convertirlo a otro lenguaje de programación, mostrando como resultado solamente el código
+            ${promptLenguajes()}
+Importante formatear texto con la nomenclatura estándar usada para el lenguaje ${lenguaje}
+${codigo}
+`;
+            return texto;
+        }
+
+        
+
+        async function GenerarCampos(){
+            //console.log('clic en generar',event.target)
+            event.target.disabled = true;
+            let input = "";
+
+            const origen = document.getElementById("Origen").value;
+            if(origen == ''){
+                Swal.fire({
+                    icon: "error",
+                    title: "Aviso...",
+                    text: "Capture un código de origen"
+                    });                        
+                return;
+            }
+
+            input = promptTipo(origen);
+
+            //Primero identifico lenguaje
+            obtenerRespuesta(input)
+                .then(resTipo => {
+                    document.getElementById('tipoOrigen').innerHTML=resTipo;
+
+                    //Generar clases
+                    input = promptOrigen(origen,resTipo);
+                    //console.log('Prompt: ',input)
+                    obtenerRespuesta(input)
+                        .then(respuesta => {
+                            document.getElementById("Destino").value = respuesta;
+                            event.target.disabled = false;
+                            //console.log(respuesta);
+                        })
+                        .catch(error => {
+                            event.target.disabled = false;
+                            console.error('Error:', error);
+                        });
+                        
+                    
+                    //console.log(respuesta);
+                })
+                .catch(error => {
+                    event.target.disabled = false;
+                    console.error('Error:', error);
+                });
+        }
+
+        document.querySelector('#cmbLenguajes').addEventListener('click', function(event) {
+            // Prevenir el comportamiento predeterminado del enlace
+            event.preventDefault();
+            document.getElementById('tipoDestino').innerHTML=event.target.innerHTML;
+        });
+
+      </script>
+
+
+    
+  </body>
+</html>
